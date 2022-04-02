@@ -1,6 +1,6 @@
 const fs = require("fs")
 
-let countContenedor = 1
+let countContenedor = 0
 
 class Contenedor {
 
