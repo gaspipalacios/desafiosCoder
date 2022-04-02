@@ -1,6 +1,6 @@
 const fs = require("fs")
 
-let countContenedor = 0
+let countContenedor = 1
 
 class Contenedor {
 
@@ -15,29 +15,34 @@ class Contenedor {
         let objBis = { id: countContenedor }
         let finalObj = { ...objBis, ...obj };
 
-        (countContenedor <= 1) ?
-            (
-                fs.writeFile(`./${this.name}`, `[${JSON.stringify(finalObj)}]`, 'utf-8', err => {
-                    err ?
-                        console.log("Error al crear archivo")
-                        :
-                        console.log("Archivo creado");
-                }),
+        if(countContenedor <= 1){
+            fs.writeFile(`./${this.name}`, `[${JSON.stringify(finalObj)}]`, 'utf-8', err => {
+                err ?
+                    console.log("Error al crear archivo")
+                    :
+                    console.log("Archivo creado, producto creado");
+            })
 
-                this.product.push(finalObj)
-            )
-            :
-            (   
-                fs.appendFile(`./${this.name}`, JSON.stringify(finalObj) + ',', 'utf-8', err => {
-                    err ?
-                        console.log("Error al agregar el string al archivo")
-                        :
-                        console.log("String agregado sin problemas");
-                }),
+            this.product.push(finalObj)
+        }else{
+            fs.readFile(`./${this.name}`, 'utf-8', (err, data) => {
+                if(err){
+                    console.log(err)
+                }else{
+                    let product = JSON.parse(data)
+                    product.push(finalObj)
 
-                this.product.push(finalObj)
-            )
-
+                fs.writeFile(`./${this.name}`, JSON.stringify(product), 'utf-8', err => {
+                    if(err){
+                        console.log(err)
+                    }else{
+                        console.log('Producto agregado')
+                        console.log(product);
+                    }
+                })
+                }
+            })
+        }
     }
 
     getAll(){
@@ -106,7 +111,7 @@ class Contenedor {
 
 let contenedor1 = new Contenedor("productos.json")
 
-//contenedor1.save({ productName: 'Notebook', price: 250000, thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png' })
+contenedor1.save({ productName: 'Notebook', price: 250000, thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png' })
 //contenedor1.getAll()
 //contenedor1.getById(1)
 //contenedor1.deleteById(1)
