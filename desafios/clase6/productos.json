@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "productName": "Laptop",
+        "price": 250000,
+        "thumbnail": "link"
+    },
+    {
+        "id": 2,
+        "productName": "Celular",
+        "price": 150000,
+        "thumbnail": "link"
+    },
+    {
+        "id": 3,
+        "productName": "Webcam",
+        "price": 5000,
+        "thumbnail": "link"
+    },
+    {
+        "id": 4,
+        "productName": "Monitor",
+        "price": 35000,
+        "thumbnail": "link"
+    },
+    {
+        "id": 5,
+        "productName": "Funda laptop",
+        "price": 4500,
+        "thumbnail": "link"
+    }
+]
