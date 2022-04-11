@@ -1,6 +1,6 @@
 const fs = require("fs")
 
-let countContenedor = 0
+let countContenedor = 4
 
 class Contenedor {
 
@@ -11,7 +11,7 @@ class Contenedor {
 
     save(obj) {
         countContenedor++;
-
+        
         let objBis = { id: countContenedor }
         let finalObj = { ...objBis, ...obj };
 
@@ -109,9 +109,11 @@ class Contenedor {
     }
 }
 
-let contenedor1 = new Contenedor("productos.json")
+module.exports= Contenedor
 
-contenedor1.save({ productName: 'Notebook', price: 250000, thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png' })
+//let contenedor1 = new Contenedor("productos.json")
+
+//contenedor1.save({ productName: 'Notebook', price: 250000, thumbnail: 'link' })
 //contenedor1.getAll()
 //contenedor1.getById(1)
 //contenedor1.deleteById(1)
