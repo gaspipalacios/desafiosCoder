@@ -2,31 +2,31 @@
     {
         "id": 1,
         "productName": "Laptop",
-        "price": 250000,
+        "price": 190000,
         "thumbnail": "link"
     },
     {
         "id": 2,
-        "productName": "Celular",
-        "price": 150000,
+        "productName": "Monitor",
+        "price": 50000,
         "thumbnail": "link"
     },
     {
         "id": 3,
-        "productName": "Webcam",
+        "productName": "Teclado",
         "price": 5000,
         "thumbnail": "link"
     },
     {
         "id": 4,
-        "productName": "Monitor",
-        "price": 35000,
+        "productName": "Mouse",
+        "price": 900,
         "thumbnail": "link"
     },
     {
         "id": 5,
-        "productName": "Funda laptop",
-        "price": 4500,
+        "productName": "Cargador Laptop",
+        "price": 3900,
         "thumbnail": "link"
     }
 ]
