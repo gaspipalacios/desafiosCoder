@@ -1,0 +1,41 @@
+<div class="container">
+
+        <div class="container my-3">
+            <h1>Products</h1>
+        </div>
+
+        <div class="container mb-3">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Imagen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data }}  
+                        <tr>
+                            <th scope="row">
+                                {{ id }}
+                            </th>
+                            <td>
+                                {{ productName }}
+                            </td>
+                            <td>
+                                ${{ price }}
+                            </td>
+                            <td>
+                                <a target="_blank" href= {{thumbnail}} > Ver imagen </a>
+                            </td>
+                        </tr>
+                         
+                    {{/each }}
+                </tbody>
+            </table>
+        </div>
+        <button class="btn btn-primary mb-3"><a style="color: white; text-decoration: none" href="http://localhost:8080/api/products/addProduct/form">Cargar producto</a></button>
+
+    </div>
+</body>
