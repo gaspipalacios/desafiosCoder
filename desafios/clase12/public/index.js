@@ -1,35 +1,74 @@
-const socket =io()
+const socket = io.connect();
 
-//CONEXIÓN CON BACKEND, ESCUCHAR Y EMITIR 
-socket.on("mensajes", (mensajes) => { 
-    console.log(mensajes);
-    render(mensajes)
-    socket.emit("message_client", "Mensaje enviado")
-}) 
+const chatForm = document.querySelector("#chat")
+const inputName = document.querySelector("#nb")
+const inputMensaje = document.querySelector("#msn")
 
-//FUNCIÓN PARA IMPRIMIR MENSAJES EN PANTALLA
-const render = (mensajes) => {
-    let html = mensajes.map((e) => {
-        return `
-            <p> <strong> ${e.nombre}: </strong> ${e.msn} </p>
-        `
-    }).join(" ")
+const productForm = document.querySelector("#productForm")
+const inputNameProduct = document.querySelector("#product_name")
+const inputPriceProduct = document.querySelector("#product_price")
+const inputUrlProduct = document.querySelector("#producto_url")
 
-    document.querySelector("#caja").innerHTML = html
+chatForm.addEventListener("submit", function (evt) {
+    evt.preventDefault();
+    const mensaje = {
+        autor: inputName.value,
+        texto: inputMensaje.value,
+    };
+    socket.emit("nuevoMensaje", mensaje);
+    inputMensaje.value = "";
+});
 
-    console.log(mensajes);
-}
+socket.on("mensajes", (mensajes) => {
+    const mensajesHTML = mensajes
+        .map(
+            (mensaje) =>
+                `<div>
+              <b style="color: blue">${mensaje.autor}</b>
+              <span style="color: brown">${mensaje.date}</span>
+              <i style="color: green">${mensaje.texto}</i>
+        </div>`
+        )
+        .join(" ");
+    document.querySelector("#mensajes").innerHTML = mensajesHTML;
 
-//FUNCIÓN PARA CAPTAR MENSAJE ENVIADO POR USUARIO A TRAVÉS DEL FORM Y ENVIARLO AL BACKEND 
-const addInfo = () => {
-    let dataObj = {nombre: document.querySelector("#nb").value, msn: document.querySelector("#msn").value}
-    socket.emit("dataMsn", dataObj)
-    console.log(dataObj)
-    document.querySelector("#msn").value = ""
-}
-
-//PREVENGO SUBMIT DEL FORM HTML PARA QUE TOME LA FUNCIÓN "addInfo()""
-document.addEventListener("submit", (evt) => {
-    evt.preventDefault()
 })
 
+productForm.addEventListener("submit", function (evt) {
+    evt.preventDefault();
+    const producto = {
+        productName: inputNameProduct.value,
+        price: inputPriceProduct.value,
+        thumbnail: inputUrlProduct.value
+    }
+
+    socket.emit("nuevoProducto", producto);
+    inputNameProduct.value = ""
+    inputPriceProduct.value = ""
+    inputUrlProduct.value = ""
+});
+
+socket.on("productos", (productos) => {
+    const productosHTML = productos
+        .map(
+            (producto) =>
+                `<tr>
+      <th scope="row">
+        ${producto.id}
+      </th>
+      <td>
+        ${producto.productName}
+      </td>
+      <td>
+        ${producto.price}
+      </td>
+      <td>
+          <a target="_blank" href=${producto.thumbnail} > Ver imagen </a>
+      </td>
+    </tr>
+    `
+        )
+        .join(" ");
+    document.querySelector("#productos").innerHTML = productosHTML
+
+})

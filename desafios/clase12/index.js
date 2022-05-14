@@ -1,23 +1,16 @@
+const fs = require("fs")
+
 const express = require("express")
 const app = express()
-
-const productsRoute = require("./routes/products.js")
 
 app.set("view engine", "ejs")
 app.set("views", "./views")
 
-//Para poder leer req.body
-app.use(express.urlencoded({extended: false}))
+//MIDDLEWARES
+app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-
-//Uso de la ruta products
-app.use("/api/products", productsRoute)
-
-//ARCHIVOS ESTÁTICOS
 app.use(express.static('public'))
 
-//DATA
-let mensajes = []
 //SERVER
 const http = require("http")
 const server = http.createServer(app)
@@ -26,21 +19,50 @@ const server = http.createServer(app)
 const { Server } = require("socket.io")
 const io = new Server(server)
 
-//CONEXIÓN, EMITIR Y ESCUCHAR
-io.on("connection", (socket) => {  
-    socket.emit("mensajes", mensajes) 
+//------------------------PRODUCTOS--------------------------------
+const Contenedor = require("./contenedores/products.js");
+const contenedor1 = new Contenedor("products.json")
 
-    socket.on("message_client", (data) => {
-        console.log(data);
+//POST
+app.post("/", async (req, res) => {
+    await contenedor1.save(req, res)
+})
+
+//------------------------FINAL PRODUCTOS---------------------------
+
+//---------------------------CHAT------------------------------
+const ContenedorArchivo = require("./contenedores/chat.js");
+const mensajesApi = new ContenedorArchivo("mensajes.json");
+
+io.on("connection", async (socket) => {
+    console.log("Usuario conectado")
+
+    socket.emit("mensajes", await mensajesApi.listarAll())
+    socket.emit("productos", await contenedor1.getAll())
+
+    socket.on("nuevoMensaje", async (mensaje) => {
+        mensaje.date = new Date().toLocaleString()
+        await mensajesApi.guardar(mensaje)
+        io.sockets.emit("mensajes", await mensajesApi.listarAll())
     })
 
-    socket.on("dataMsn", (data) => { 
-        console.log(data)
-        mensajes.push(data) 
-        io.sockets.emit("mensajes", mensajes)
+    socket.on("nuevoProducto", async (producto) => {
+        await contenedor1.save(producto)
+        io.sockets.emit("productos", await contenedor1.getAll())
+    })
+
+})
+
+//------------------------FINAL CHAT---------------------------
+
+//GET
+app.get("/", async (req, res) => {
+    res.render("form", {
+        mensajes: await mensajesApi.listarAll(),
+        productos: await contenedor1.getAll()
     })
 })
 
-app.listen(8080, () => {
+server.listen(8080, () => {
     console.log("Server running on port 8080");
 })
