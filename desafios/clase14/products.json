@@ -1,0 +1,14 @@
+[
+  {
+    "productName": "Mate",
+    "price": 2600,
+    "thumbnail": "link",
+    "id": 1
+  },
+  {
+    "productName": "Termo",
+    "price": 4200,
+    "thumbnail": "link",
+    "id": 2
+  }
+]
