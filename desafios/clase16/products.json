@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "productName": "Termo Crossmaster",
+        "price": "4500",
+        "thumbnail": "link"
+    },
+    {
+        "productName": "Mate torpedo",
+        "price": "2450",
+        "thumbnail": "link",
+        "id": 2
+    },
+    {
+        "productName": "Bombilla",
+        "price": "780",
+        "thumbnail": "link",
+        "id": 3
+    },
+    {
+        "productName": "Bolso térmico",
+        "price": "2870",
+        "thumbnail": "link",
+        "id": 4
+    }
+]
