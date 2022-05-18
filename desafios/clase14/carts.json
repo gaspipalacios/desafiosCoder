@@ -1,0 +1,42 @@
+[
+  {
+    "productos": {
+      "name": "Bolso matero",
+      "price": 3950,
+      "description": "Marca Curley",
+      "stock": 12,
+      "code": "0004",
+      "thumbnail": "link",
+      "timestamp": "18/5/2022, 8:27:44",
+      "id": 4
+    },
+    "timestamp": "18/5/2022, 9:22:11",
+    "id": 1
+  },
+  {
+    "productos": [
+      {
+        "name": "Bombilla",
+        "price": 800,
+        "description": "Marca Curley",
+        "stock": 7,
+        "code": "0003",
+        "thumbnail": "link",
+        "timestamp": "18/5/2022, 8:26:41",
+        "id": 3
+      },
+      {
+        "name": "Termo",
+        "price": 4200,
+        "description": "Marca Crossmaster",
+        "stock": 7,
+        "code": "0001",
+        "thumbnail": "link",
+        "timestamp": "18/5/2022, 8:25:16",
+        "id": 1
+      }
+    ],
+    "timestamp": "18/5/2022, 9:43:42",
+    "id": 2
+  }
+]
