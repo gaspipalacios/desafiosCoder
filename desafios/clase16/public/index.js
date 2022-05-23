@@ -51,19 +51,19 @@ productForm.addEventListener("submit", function (evt) {
 socket.on("productos", (productos) => {
     const productosHTML = productos
         .map(
-            (producto) =>
+            (product) =>
                 `<tr>
       <th scope="row">
-        ${producto.id}
+        ${product.id}
       </th>
       <td>
-        ${producto.productName}
+        ${product.productName}
       </td>
       <td>
-        ${producto.price}
+        ${product.price}
       </td>
       <td>
-          <a target="_blank" href=${producto.thumbnail} > Ver imagen </a>
+          <a target="_blank" href=${product.thumbnail} > Ver imagen </a>
       </td>
     </tr>
     `

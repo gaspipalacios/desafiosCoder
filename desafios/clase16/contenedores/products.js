@@ -1,4 +1,6 @@
+const { log } = require('console')
 const { promises: fs } = require('fs')
+const { resolve } = require('path')
 
 const knex = require("../src/db")
 
@@ -8,18 +10,17 @@ class Contenedor {
         this.name = name
     }
 
-    save(req, res) {
+    save(producto) {
         const productNew = {
-            productName: req.body.productName,
-            price: req.body.price,
-            thumbnail: req.body.thumbnail
+            productName: producto.productName,
+            price: producto.price,
+            thumbnail: producto.thumbnail
         }
 
         knex("products")
         .insert(productNew)
         .then(() => {
-            console.log("Registro OK")
-            res.send({ message: "Registro OK" })
+            console.log("Producto guardado")
         })
         .catch((error) => {
             console.log(error);
@@ -28,13 +29,19 @@ class Contenedor {
         
     }
 
-    async getAll() {
-        try {
-            const productos = await fs.readFile(`./${this.name}`, 'utf-8')
-            return JSON.parse(productos)
-        } catch (error) {
-            return []
-        }
+    getAll() {
+        
+        knex
+            .from('products')
+            .select('*')
+            .then((json) => {
+                
+                return json
+                
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
 }

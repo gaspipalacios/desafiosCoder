@@ -40,6 +40,7 @@ io.on("connection", async (socket) => {
     socket.emit("mensajes", await mensajesApi.listarAll())
     socket.emit("productos", await contenedor1.getAll())
 
+
     socket.on("nuevoMensaje", async (mensaje) => {
         mensaje.date = new Date().toLocaleString()
         await mensajesApi.guardar(mensaje)
