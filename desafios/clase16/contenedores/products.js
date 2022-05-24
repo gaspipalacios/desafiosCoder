@@ -29,19 +29,11 @@ class Contenedor {
         
     }
 
-    getAll() {
+    async getAll() {
+        const productos = 
+        await knex("products").select('*')
         
-        knex
-            .from('products')
-            .select('*')
-            .then((json) => {
-                
-                return json
-                
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        return productos
     }
 
 }

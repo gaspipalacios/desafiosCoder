@@ -49,7 +49,7 @@ productForm.addEventListener("submit", function (evt) {
 });
 
 socket.on("productos", (productos) => {
-    const productosHTML = productos
+    const productosHTML = productos && productos
         .map(
             (product) =>
                 `<tr>
