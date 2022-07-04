@@ -104,14 +104,13 @@ class Cart {
 
         if (indexCart == -1) {
             throw new Error(`Error, no se encontró el id del carrito: ${idCart}`)
-        } else {
-            carts[indexCart]["productos"].push(addProduct)
-            try {
-                await fs.writeFile(this.name, JSON.stringify(carts, null, 2))
-            } catch (error) {
-                throw new Error(`Error al intentar borrar prodcuto: ${error}`)
-            }
+        }
 
+        carts[indexCart]["productos"].push(addProduct)
+        try {
+            await fs.writeFile(this.name, JSON.stringify(carts, null, 2))
+        } catch (error) {
+            throw new Error(`Error al intentar borrar prodcuto: ${error}`)
         }
 
     }
