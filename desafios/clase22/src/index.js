@@ -20,8 +20,8 @@ const { Server } = require("socket.io")
 const io = new Server(server)
 
 //------------------------PRODUCTOS--------------------------------
-const Contenedor = require("../contenedores/products.js");
-const contenedor1 = new Contenedor("products.json")
+//const Contenedor = require("../contenedores/products.js");
+//const contenedor1 = new Contenedor("products.json")
 
 
 //POST
@@ -31,22 +31,40 @@ app.post("/", (req, res) => {
 
 //------------------------FINAL PRODUCTOS---------------------------
 
-//---------------------------CHAT------------------------------
+//---------------------------INSTANCIO CONTENEDOR-------------------
 const ContenedorArchivo = require("../contenedores/chat.js");
 
 const mensajesApi = new ContenedorArchivo("mensajes.json");
 
+//NORMALIZO MENSAJES DEL CHAT
+const normalizr = require('normalizr')
+
+const autoresSchema = new normalizr.schema.Entity('autores')
+const mensajeSchema = new normalizr.schema.Entity('mensajes', {
+    autor: autoresSchema
+})
+
+const normalizado = async () => {
+    const mensajes = await mensajesApi.listarAll()
+    const normalizado = normalizr.normalize(mensajes, [mensajeSchema])
+    
+    return normalizado
+}
+
+//-------------------------------------------------------------
+
+//---------------------------CHAT------------------------------
 io.on("connection", async (socket) => {
     console.log("Usuario conectado")
 
-    socket.emit("mensajes", await mensajesApi.listarAll())
+    socket.emit("mensajes", await normalizado())
     socket.emit("productos", prodsFakers(6))
 
 
     socket.on("nuevoMensaje", async (mensaje) => {
         mensaje.date = new Date().toLocaleString()
         await mensajesApi.guardar(mensaje)
-        io.sockets.emit("mensajes", await mensajesApi.listarAll())
+        io.sockets.emit("mensajes", await normalizado())
     })
 
     socket.on("nuevoProducto", async (producto) => {
@@ -61,11 +79,10 @@ io.on("connection", async (socket) => {
 //GET
 app.get("/", async (req, res) => {
     res.render("form", {
-        mensajes: await mensajesApi.listarAll(),
+        mensajes: await normalizado(),
         //productos: await contenedor1.getAll()
         productos: prodsFakers(6)
     })
-    console.log(prodsFakers(6));
 })
 
 server.listen(8080, () => {

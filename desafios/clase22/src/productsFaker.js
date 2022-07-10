@@ -7,7 +7,7 @@ const prodsFakers = (n) => {
         const producto = {
             id: i,
             productName: faker.commerce.product(),
-            price: '$' + faker.commerce.price(),
+            price: faker.commerce.price(),
             thumbnail: faker.image.fashion()
         }
         productos.push(producto)

@@ -1,7 +1,12 @@
 const socket = io.connect();
 
 const chatForm = document.querySelector("#chat")
+const inputId = document.querySelector('#id')
 const inputName = document.querySelector("#nb")
+const inputApellido = document.querySelector('#ap')
+const inputEdad = document.querySelector('#edad')
+const inputAlias = document.querySelector('#alias')
+const inputAvatar = document.querySelector('#avatar')
 const inputMensaje = document.querySelector("#msn")
 
 const productForm = document.querySelector("#productForm")
@@ -12,19 +17,38 @@ const inputUrlProduct = document.querySelector("#producto_url")
 chatForm.addEventListener("submit", function (evt) {
     evt.preventDefault();
     const mensaje = {
-        autor: inputName.value,
-        texto: inputMensaje.value,
+        autor: {
+            id: inputId.value,
+            nombre: inputName.value,
+            apellido: inputApellido.value,
+            edad: inputEdad.value,
+            alias: inputAlias.value,
+            avatar: inputAvatar.value
+        },
+        texto: inputMensaje.value
     };
     socket.emit("nuevoMensaje", mensaje);
     inputMensaje.value = "";
 });
 
 socket.on("mensajes", (mensajes) => {
-    const mensajesHTML = mensajes
+
+    const autoresSchema = new normalizr.schema.Entity('autores')
+    const mensajeSchema = new normalizr.schema.Entity('mensajes', {
+        autor: autoresSchema
+    })
+    const mensjDesnormalizado = normalizr.denormalize(mensajes.result, [mensajeSchema], mensajes.entities)
+    const largoNormalizado = JSON.stringify(mensajes).length
+    const largoSinNormalizar = JSON.stringify(mensjDesnormalizado).length
+    const porcentajeCompresion = ((1 - (largoNormalizado/largoSinNormalizar))*100).toFixed(2)
+    
+    document.querySelector("#compresion").innerHTML = `<h4>Compresión de mensajes: ${porcentajeCompresion}%</h4>`
+
+    const mensajesHTML = mensjDesnormalizado
         .map(
             (mensaje) =>
                 `<div>
-              <b style="color: blue">${mensaje.autor}</b>
+              <b style="color: blue">${mensaje.autor.alias}</b>
               <span style="color: brown">${mensaje.date}</span>
               <i style="color: green">${mensaje.texto}</i>
         </div>`
