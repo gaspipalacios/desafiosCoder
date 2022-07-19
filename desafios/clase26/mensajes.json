@@ -1,0 +1,93 @@
+[
+  {
+    "autor": {
+      "id": "gpalaciostorre@gmail.com",
+      "nombre": "Gaspar",
+      "apellido": "Palacios Torre",
+      "edad": "27",
+      "alias": "Gaspi",
+      "avatar": "link"
+    },
+    "texto": "Holaaaa!",
+    "date": "9/7/2022 20:29:15",
+    "id": 1
+  },
+  {
+    "autor": {
+      "id": "pepito@gmail.com",
+      "nombre": "José",
+      "apellido": "Pepe",
+      "edad": "45",
+      "alias": "Pepito",
+      "avatar": "link"
+    },
+    "texto": "Hola Gaspi!",
+    "date": "9/7/2022 20:56:23",
+    "id": 2
+  },
+  {
+    "autor": {
+      "id": "gpalaciostorre@gmail.com",
+      "nombre": "Gaspar",
+      "apellido": "Palacios Torre",
+      "edad": "27",
+      "alias": "Gaspi",
+      "avatar": "link"
+    },
+    "texto": "Qué hacés Pepee!?!",
+    "date": "9/7/2022 20:58:02",
+    "id": 3
+  },
+  {
+    "autor": {
+      "id": "pepito@gmail.com",
+      "nombre": "José",
+      "apellido": "Pepe",
+      "edad": "45",
+      "alias": "Pepito",
+      "avatar": "link"
+    },
+    "texto": "Nada acá programando!",
+    "date": "9/7/2022 20:58:54",
+    "id": 4
+  },
+  {
+    "autor": {
+      "id": "ricardo@gmail.com",
+      "nombre": "Ricardo",
+      "apellido": "Colazo",
+      "edad": "63",
+      "alias": "Richard",
+      "avatar": "link"
+    },
+    "texto": "Holisss.-.!",
+    "date": "10/7/2022, 3:14:19",
+    "id": 5
+  },
+  {
+    "autor": {
+      "id": "ricardo@gmail.com",
+      "nombre": "Ricardo",
+      "apellido": "Colazo",
+      "edad": "63",
+      "alias": "Richard",
+      "avatar": "link"
+    },
+    "texto": "Al fin la puta madre",
+    "date": "10/7/2022, 3:14:32",
+    "id": 6
+  },
+  {
+    "autor": {
+      "id": "gpalaciostorre@gmail.com",
+      "nombre": "Gaspar",
+      "apellido": "Palacios Torre",
+      "edad": "27",
+      "alias": "Gaspi",
+      "avatar": "link"
+    },
+    "texto": "Excelente!",
+    "date": "10/7/2022, 3:30:56",
+    "id": 7
+  }
+]
