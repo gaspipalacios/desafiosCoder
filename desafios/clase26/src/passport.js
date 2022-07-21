@@ -7,12 +7,11 @@ const usersContenedor = new ContenedorMongoDb()
 
 passport.use('signup', new LocalStrategy(async (username, password, callback) => {
     const users = await usersContenedor.getAll()
-    console.log(users);
     const user = users.find(user => user.username === username)
     if(user) return callback(new Error('Ese username ya existe, prueba otro'))
     const passwordHasheado = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
     const usuarioCreado = {username, password: passwordHasheado}
-    users.push(usuarioCreado)
+    await usersContenedor.save(usuarioCreado)
     callback(null, usuarioCreado)
 }))
 
