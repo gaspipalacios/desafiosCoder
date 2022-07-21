@@ -19,7 +19,7 @@ passport.use('login', new LocalStrategy(async (username, password, callback) => 
     const users = await usersContenedor.getAll()
     const user = users.find(usuario => usuario.username === username)
     console.log(user);
-    if(!user || bcrypt.compareSync(password, user.password)) return callback(new Error('Usuario inexistente o password incorrecto'))
+    if(!user || !bcrypt.compareSync(password, user.password)) return callback(new Error('Usuario inexistente o password incorrecto'))
     callback(null, user)
 }))
 
