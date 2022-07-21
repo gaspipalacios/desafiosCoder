@@ -7,7 +7,6 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 
-
 const app = express()
 
 app.set("view engine", "ejs")
@@ -18,7 +17,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(express.static('public'))
 
-//MIDDLEWARE SESSIONMONGO ATLAS
+//MIDDLEWARE SESSION MONGO ATLAS
 app.use(session({
     store: MongoStore.create({
         mongoUrl: 'mongodb+srv://gaspar-1:gaspar1@cluster-ecommerce.ppngn.mongodb.net/sessionsDB?retryWrites=true&w=majority',
