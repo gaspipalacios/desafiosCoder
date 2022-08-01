@@ -154,7 +154,7 @@ app.get('/info', auth, (_, res) => res.json(info))
 
 //GETs Router-------------------------------------------
 forkRouter.get('/randoms', (req, res) => {
-    const forkeado = fork('./src/noBlock.js', [req.query])
+    const forkeado = fork('./src/noBlock.js', [req.query.n])
     forkeado.send('empezar')
     forkeado.on('message', (resultado) => {
         if (resultado) {
